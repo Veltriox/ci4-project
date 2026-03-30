@@ -1,0 +1,187 @@
+/* --- Specialized UI Refinements for Academic Support System --- */
+
+/* Automatically hide the 2020 Influence footer and remove extra bottom space */
+.footer_part {
+    display: none !important;
+}
+
+/* Remove extra gap at the bottom of the page */
+.main_content_iner {
+    padding-bottom: 0px !important;
+    margin-bottom: 0px !important;
+}
+
+/* RESTORE PREMIUM SORTING ARROWS (AS PER IMAGE) */
+.QA_section .QA_table .table thead th.sorting,
+.QA_section .QA_table .table thead th.sorting_asc,
+.QA_section .QA_table .table thead th.sorting_desc {
+    position: relative !important;
+    padding-right: 32px !important; 
+    cursor: pointer !important;
+    background-image: none !important;
+}
+
+.QA_section .QA_table .table thead th.sorting::before,
+.QA_section .QA_table .table thead th.sorting_asc::before,
+.QA_section .QA_table .table thead th.sorting_desc::before {
+    position: absolute !important;
+    right: 1.5em !important;
+    bottom: 0.9em !important;
+    display: block !important;
+    opacity: 0.3 !important;
+    content: "\2191" !important;
+}
+
+.QA_section .QA_table .table thead th.sorting::after,
+.QA_section .QA_table .table thead th.sorting_asc::after,
+.QA_section .QA_table .table thead th.sorting_desc::after {
+    position: absolute !important;
+    right: 1em !important;
+    bottom: 0.9em !important;
+    display: block !important;
+    opacity: 0.3 !important;
+    content: "\2193" !important;
+}
+
+/* Highlighting active sort */
+.QA_section .QA_table .table thead th.sorting_asc::before,
+.QA_section .QA_table .table thead th.sorting_desc::after {
+    opacity: 1 !important;
+    color: #4c7cf3 !important;
+}
+
+/* MODAL LOGIC: FIXED STACKING AND INTERACTION */
+.modal-backdrop {
+    display: none !important; /* Forceizedizeize removal to preventizingizedize invisibleizedize screens */
+}
+
+.modal {
+    z-index: 9999 !important; /* ULTRA-HIGHIZEDizedizedize to sit on top of everything */
+    background: rgba(0,0,0,0.5) !important; /* Simulateizedizeize backdrop specializedIZEDizedizeizingzedizeizerizedIZEDizedizeizerizedIZEDizeize entries */
+    pointer-events: auto !important;
+}
+
+.modal-dialog {
+    z-index: 10000 !important;
+    pointer-events: auto !important;
+    margin-top: 85px !important;
+    max-width: 600px !important;
+}
+
+.modal-content {
+    background-color: #ffffff !important;
+    box-shadow: 0 15px 50px rgba(0,0,0,0.6) !important;
+    border: none !important;
+    border-radius: 16px;
+    z-index: 10001 !important;
+    pointer-events: auto !important;
+}
+
+/* EnsureizedizeizerizedIZEDizeIZERIZEDizedizedizedIZEDizeizedizingizedizedizeizerizedizedizedizedizedIZEDizedizeizerizedIZEDizedizedizedIZEDizedizeizerizedizedIZEDizeizerizedizedizedizedizedIZEDizeizerizedIZEDizedizedizedIZEDizedizeizeizerizedizedIZEDizeizeizingizedizedizedizedizedIZEDizeizedizingizedizedizeizingizedizedizeIZEDizeazingizedizedize interaction finalizedizedizeizedIZE entries in the popup workifiedizedizedize */
+.modal-body, .modal-header, .modal-footer {
+    pointer-events: auto !important;
+}
+
+/* High-Contrast Visibility Fixes */
+.modal-body .dark_text, 
+.modal-body h5, 
+.modal-body p, 
+.modal-body span:not(.text-muted) {
+    color: #000 !important;
+    font-weight: 600;
+}
+
+.text-muted {
+    color: #333 !important;
+}
+
+/* Modal Headers */
+.tkt-modal-header {
+    background: #fff;
+    border: 0;
+    padding: 1.5rem 1.5rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.tkt-border-success { border-top: 6px solid #2ecc71 !important; }
+.tkt-border-info { border-top: 6px solid #17a2b8 !important; }
+.tkt-border-primary { border-top: 6px solid #7c5cfc !important; }
+
+/* Premium Styling for CI Pager Links */
+.pagination_links nav {
+    margin: 0;
+}
+.pagination_links ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: 8px;
+    align-items: center;
+}
+.pagination_links li a, .pagination_links li span {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 8px;
+    background: #f1f4f9;
+    color: #5e6278;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 13px;
+    transition: all 0.2s ease;
+    border: none;
+}
+.pagination_links li.active a, .pagination_links li.active span {
+    background: #884ffb !important;
+    color: #ffffff !important;
+    box-shadow: 0px 4px 12px rgba(136, 79, 251, 0.3);
+}
+.pagination_links li a:hover:not(.active) {
+    background: #e1e9ff;
+    color: #884ffb;
+}
+
+/* Hide Table Info when pager is active */
+#agentTicketsTable_info, #agentTicketsTable_paginate, 
+.dataTables_info, .dataTables_paginate {
+    display: none !important;
+}
+
+/* Status and Action Utilities */
+.tkt-status-btn {
+    color: white !important;
+    min-width: 80px;
+    text-align: center;
+    display: inline-block;
+}
+
+.tkt-action-btn {
+    padding: 2px 12px !important;
+    font-size: 13px !important;
+    border-radius: 6px !important;
+}
+
+.tkt-dropdown {
+    border-radius: 8px !important;
+    margin-top: 5px !important;
+    min-width: 150px !important;
+    padding: 5px 0 !important;
+}
+
+.fs-11 { font-size: 11px !important; }
+.fs-13 { font-size: 13px !important; }
+.fs-14 { font-size: 14px !important; }
+.fw_700 { font-weight: 700 !important; }
+.fw_600 { font-weight: 600 !important; }
+
+/* Typography Extensions */
+.tkt-label {
+    color: #333 !important;
+    font-weight: 700;
+    display: block;
+    text-transform: uppercase;
+    font-size: 10px;
+    margin-bottom: 0.25rem;
+}
