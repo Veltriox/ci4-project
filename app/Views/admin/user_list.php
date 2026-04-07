@@ -43,43 +43,17 @@
                                             <th scope="col">Action</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <?php if (!empty($users)): ?>
-                                            <?php $i = 1; foreach ($users as $user): ?>
-                                            <tr>
-                                                <th scope="row"><?= $i++ ?></th>
-                                                <td><?= esc($user['username']) ?></td>
-                                                <td><?= esc($user['first_name'] ?? '-') ?></td>
-                                                <td><?= esc($user['last_name'] ?? '-') ?></td>
-                                                <td><?= esc($user['email']) ?></td>
-                                                <td><?= esc($user['phone'] ?? '-') ?></td>
-                                                <td>
-                                                    <div class="action_btns d-flex">
-                                                        <a href="<?= site_url('home/edit/' . $user['id']) ?>" class="action_btn mr_10" title="Edit">
-                                                            <i class="far fa-edit"></i>
-                                                        </a>
-                                                        <a href="<?= site_url('home/delete_user/' . $user['id']) ?>" class="action_btn" title="Delete" onclick="return confirm('Are you sure you want to delete this user?')">
-                                                            <i class="fas fa-trash"></i>
-                                                        </a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <?php endforeach; ?>
-                                        <?php else: ?>
-                                            <tr>
-                                                <td colspan="7" class="text-center">No users found.</td>
-                                            </tr>
-                                        <?php endif; ?>
+                                    <tbody id="userTableBody">
+                                        <!-- Data will be loaded via GraphQL -->
+                                        <tr>
+                                            <td colspan="7" class="text-center">Loading users...</td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
 
                             <!-- Pagination -->
-                            <?php if (isset($pager)): ?>
-                            <div class="d-flex justify-content-center">
-                                <?= $pager->links() ?>
-                            </div>
-                            <?php endif; ?>
+                            <div id="paginationContainer" class="d-flex justify-content-center"></div>
 
                         </div>
                     </div>
@@ -90,3 +64,71 @@
 </div>
 </section>
 <?= view('admin/partials/scripts') ?>
+
+<script>
+$(document).ready(function() {
+    function loadUsers() {
+        const query = {
+            operation: 'query',
+            fields: ['id', 'username', 'first_name', 'last_name', 'email', 'phone']
+        };
+
+        $.ajax({
+            url: '<?= site_url("admin/graphql") ?>', 
+            type: 'POST',
+            contentType: 'application/json',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRF-TOKEN': '<?= csrf_hash() ?>' // Security token
+            },
+            data: JSON.stringify(query),
+            success: function(response) {
+                console.log("GraphQL Response:", response); // For debugging
+                
+                if (response.error || response.status === 'error') {
+                    $('#userTableBody').html('<tr><td colspan="7" class="text-center text-danger">Error: ' + (response.error || response.message) + '</td></tr>');
+                    return;
+                }
+
+                const users = response.data.users;
+                let html = '';
+                
+                if (users && users.length > 0) {
+                    users.forEach((user, index) => {
+                        html += `
+                        <tr>
+                            <th scope="row">${index + 1}</th>
+                            <td>${user.username}</td>
+                            <td>${user.first_name || '-'}</td>
+                            <td>${user.last_name || '-'}</td>
+                            <td>${user.email}</td>
+                            <td>${user.phone || '-'}</td>
+                            <td>
+                                <div class="action_btns d-flex">
+                                    <a href="<?= site_url('home/edit/') ?>${user.id}" class="action_btn mr_10" title="Edit">
+                                        <i class="far fa-edit"></i>
+                                    </a>
+                                    <a href="<?= site_url('home/delete_user/') ?>${user.id}" class="action_btn" title="Delete" onclick="return confirm('Are you sure?')">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>`;
+                    });
+                } else {
+                    html = '<tr><td colspan="7" class="text-center">No users found.</td></tr>';
+                }
+                
+                $('#userTableBody').html(html);
+            },
+            error: function(xhr, status, error) {
+                console.error("AJAX Error:", error);
+                console.log("Response Text:", xhr.responseText);
+                $('#userTableBody').html('<tr><td colspan="7" class="text-center text-danger">Failed to load data (Server Error).</td></tr>');
+            }
+        });
+    }
+
+    loadUsers(); // Run the GraphQL query on page load
+});
+</script>

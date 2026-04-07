@@ -16,7 +16,7 @@
 .QA_section .QA_table .table thead th.sorting_asc,
 .QA_section .QA_table .table thead th.sorting_desc {
     position: relative !important;
-    padding-right: 32px !important; 
+    padding-right: 32px !important;
     cursor: pointer !important;
     background-image: none !important;
 }
@@ -52,13 +52,20 @@
 
 /* MODAL LOGIC: FIXED STACKING AND INTERACTION */
 .modal-backdrop {
-    display: none !important; /* Forceizedizeize removal to preventizingizedize invisibleizedize screens */
+    display: none !important;
+    /* Forceizedizeize removal to preventizingizedize invisibleizedize screens */
+}
+
+.modal.show {
+    z-index: 9999 !important;
+    background: rgba(0, 0, 0, 0.5) !important;
+    pointer-events: auto !important;
+    display: block !important;
 }
 
 .modal {
-    z-index: 9999 !important; /* ULTRA-HIGHIZEDizedizedize to sit on top of everything */
-    background: rgba(0,0,0,0.5) !important; /* Simulateizedizeize backdrop specializedIZEDizedizeizingzedizeizerizedIZEDizedizeizerizedIZEDizeize entries */
-    pointer-events: auto !important;
+    display: none;
+    pointer-events: none;
 }
 
 .modal-dialog {
@@ -70,7 +77,7 @@
 
 .modal-content {
     background-color: #ffffff !important;
-    box-shadow: 0 15px 50px rgba(0,0,0,0.6) !important;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.6) !important;
     border: none !important;
     border-radius: 16px;
     z-index: 10001 !important;
@@ -78,14 +85,16 @@
 }
 
 /* EnsureizedizeizerizedIZEDizeIZERIZEDizedizedizedIZEDizeizedizingizedizedizeizerizedizedizedizedizedIZEDizedizeizerizedIZEDizedizedizedIZEDizedizeizerizedizedIZEDizeizerizedizedizedizedizedIZEDizeizerizedIZEDizedizedizedIZEDizedizeizeizerizedizedIZEDizeizeizingizedizedizedizedizedIZEDizeizedizingizedizedizeizingizedizedizeIZEDizeazingizedizedize interaction finalizedizedizeizedIZE entries in the popup workifiedizedizedize */
-.modal-body, .modal-header, .modal-footer {
+.modal-body,
+.modal-header,
+.modal-footer {
     pointer-events: auto !important;
 }
 
 /* High-Contrast Visibility Fixes */
-.modal-body .dark_text, 
-.modal-body h5, 
-.modal-body p, 
+.modal-body .dark_text,
+.modal-body h5,
+.modal-body p,
 .modal-body span:not(.text-muted) {
     color: #000 !important;
     font-weight: 600;
@@ -105,14 +114,23 @@
     align-items: flex-start;
 }
 
-.tkt-border-success { border-top: 6px solid #2ecc71 !important; }
-.tkt-border-info { border-top: 6px solid #17a2b8 !important; }
-.tkt-border-primary { border-top: 6px solid #7c5cfc !important; }
+.tkt-border-success {
+    border-top: 6px solid #2ecc71 !important;
+}
+
+.tkt-border-info {
+    border-top: 6px solid #17a2b8 !important;
+}
+
+.tkt-border-primary {
+    border-top: 6px solid #7c5cfc !important;
+}
 
 /* Premium Styling for CI Pager Links */
 .pagination_links nav {
     margin: 0;
 }
+
 .pagination_links ul {
     display: flex;
     list-style: none;
@@ -121,7 +139,9 @@
     gap: 8px;
     align-items: center;
 }
-.pagination_links li a, .pagination_links li span {
+
+.pagination_links li a,
+.pagination_links li span {
     display: inline-block;
     padding: 8px 16px;
     border-radius: 8px;
@@ -133,19 +153,24 @@
     transition: all 0.2s ease;
     border: none;
 }
-.pagination_links li.active a, .pagination_links li.active span {
+
+.pagination_links li.active a,
+.pagination_links li.active span {
     background: #884ffb !important;
     color: #ffffff !important;
     box-shadow: 0px 4px 12px rgba(136, 79, 251, 0.3);
 }
+
 .pagination_links li a:hover:not(.active) {
     background: #e1e9ff;
     color: #884ffb;
 }
 
 /* Hide Table Info when pager is active */
-#agentTicketsTable_info, #agentTicketsTable_paginate, 
-.dataTables_info, .dataTables_paginate {
+#agentTicketsTable_info,
+#agentTicketsTable_paginate,
+.dataTables_info,
+.dataTables_paginate {
     display: none !important;
 }
 
@@ -170,11 +195,25 @@
     padding: 5px 0 !important;
 }
 
-.fs-11 { font-size: 11px !important; }
-.fs-13 { font-size: 13px !important; }
-.fs-14 { font-size: 14px !important; }
-.fw_700 { font-weight: 700 !important; }
-.fw_600 { font-weight: 600 !important; }
+.fs-11 {
+    font-size: 11px !important;
+}
+
+.fs-13 {
+    font-size: 13px !important;
+}
+
+.fs-14 {
+    font-size: 14px !important;
+}
+
+.fw_700 {
+    font-weight: 700 !important;
+}
+
+.fw_600 {
+    font-weight: 600 !important;
+}
 
 /* Typography Extensions */
 .tkt-label {

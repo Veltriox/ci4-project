@@ -116,20 +116,27 @@ $(document).ready(function() {
             password:   $('#password').val()
         };
 
+        // Prepare GraphQL Mutation
+        const mutation = {
+            operation: 'mutation',
+            variables: formData
+        };
+
         // Disable button while submitting
         $('#submitBtn').prop('disabled', true).text('Saving...');
 
         $.ajax({
-            url: '<?= site_url("home/saveUser") ?>',
+            url: '<?= site_url("admin/graphql") ?>',
             type: 'POST',
-            data: formData,
-            dataType: 'json',
+            contentType: 'application/json',
+            data: JSON.stringify(mutation),
             success: function(response) {
-                if (response.status === 'error') {
-                    showError(response.field, response.message);
+                if (response.error) {
+                    // Handle GraphQL errors
+                    alert(response.error);
                     $('#submitBtn').prop('disabled', false).text('Add User');
-                } else if (response.status === 'success') {
-                    showSuccess('User added successfully! Redirecting...');
+                } else if (response.data && response.data.createUser) {
+                    showSuccess('User added successfully (via GraphQL)! Redirecting...');
                     setTimeout(function() {
                         window.location.href = '<?= site_url("home/userList") ?>';
                     }, 1500);

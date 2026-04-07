@@ -289,6 +289,7 @@
             </a>
             <ul>
                 <li><a href="<?= site_url('admin/data_table') ?>">Data Tables</a></li>
+                <li><a href="<?= site_url('admin/student-data') ?>">Student Table</a></li>
                 <li><a href="<?= site_url('admin/bootstrap_table') ?>">Bootstrap</a></li>
             </ul>
           </li>

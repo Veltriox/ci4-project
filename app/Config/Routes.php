@@ -48,3 +48,7 @@ $routes->post('support/updateFullTicket/(:num)', 'Support::updateFullTicket/$1')
 $routes->get('support/getTicket/(:num)', 'Support::getTicketDetails/$1');
 $routes->get('support/deleteTicket/(:num)', 'Support::deleteTicket/$1');
 $routes->get('support/getHistory/(:num)', 'Support::getHistory/$1');
+
+// --- NEW DATA TABLE ROUTE ---
+$routes->get('admin/student-data', 'StudentData::index');
+$routes->post('admin/graphql', 'GraphQL::index');
