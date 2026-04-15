@@ -52,3 +52,6 @@ $routes->get('support/getHistory/(:num)', 'Support::getHistory/$1');
 // --- NEW DATA TABLE ROUTE ---
 $routes->get('admin/student-data', 'StudentData::index');
 $routes->post('admin/graphql', 'GraphQL::index');
+
+// --- MEDIA SERVING ROUTE ---
+$routes->get('media/view/(:any)', 'Media::view/$1');

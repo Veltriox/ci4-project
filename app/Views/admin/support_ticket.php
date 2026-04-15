@@ -111,7 +111,7 @@
                                     <?php if($isEdit && !empty($ticket['attachment'])): ?>
                                         <div class="mt-2">
                                             <span class="text-muted small fw_700 text-uppercase" style="font-size: 9px;">Current File: </span>
-                                            <a href="<?= base_url('uploads/tickets/'.$ticket['attachment']) ?>" target="_blank" class="text-primary fw_600" style="font-size: 13px;">
+                                            <a href="<?= site_url('media/view/'.$ticket['attachment']) ?>" target="_blank" class="text-primary fw_600" style="font-size: 13px;">
                                                 <i class="ti-clip me-1"></i><?= htmlspecialchars($ticket['attachment']) ?>
                                             </a>
                                         </div>

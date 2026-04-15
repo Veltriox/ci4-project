@@ -203,7 +203,7 @@ $(document).ready(function() {
                 $('#update_remark_val').val(t.agent_remark || '');
                 
                 if (t.attachment) {
-                    $('#update_attachment_box').html(`<div class="mb-3 border-top pt-2"><label class="tkt-label">Attachment</label><a href="<?= base_url('uploads/tickets/') ?>/${t.attachment}" target="_blank" class="text-primary fw_600" style="font-size: 13px;"><i class="ti-clip me-1"></i>${t.attachment}</a></div>`);
+                    $('#update_attachment_box').html(`<div class="mb-3 border-top pt-2"><label class="tkt-label">Attachment</label><a href="<?= site_url('media/view/') ?>/${t.attachment}" target="_blank" class="text-primary fw_600" style="font-size: 13px;"><i class="ti-clip me-1"></i>${t.attachment}</a></div>`);
                 } else {
                     $('#update_attachment_box').empty();
                 }
@@ -237,7 +237,7 @@ $(document).ready(function() {
                         <label class="text-muted small fw_700 mb-2 d-block text-uppercase" style="font-size: 10px;">Description</label>
                         <p class="mb-0 text-dark" style="font-size: 13.5px;">${t.description}</p>
                     </div>
-                    ${t.attachment ? `<div class="mb-3 border-top pt-2"><label class="text-muted small fw_700 mb-1 d-block text-uppercase" style="font-size: 10px;">Attachment</label><a href="<?= base_url('uploads/tickets/') ?>/${t.attachment}" target="_blank" class="text-primary fw_600" style="font-size: 13px;"><i class="ti-clip me-1"></i>${t.attachment}</a></div>` : ''}
+                    ${t.attachment ? `<div class="mb-3 border-top pt-2"><label class="text-muted small fw_700 mb-1 d-block text-uppercase" style="font-size: 10px;">Attachment</label><a href="<?= site_url('media/view/') ?>/${t.attachment}" target="_blank" class="text-primary fw_600" style="font-size: 13px;"><i class="ti-clip me-1"></i>${t.attachment}</a></div>` : ''}
                     ${t.agent_remark ? `<div class="pt-3 border-top"><label class="text-success small fw_700 mb-1 d-block text-uppercase" style="font-size: 10px;">Team Response</label><p class="mb-0 text-dark fw_600" style="font-size: 13px;">${t.agent_remark}</p></div>` : ''}
                 `);
             }
@@ -291,7 +291,7 @@ $(document).ready(function() {
                             <td>
                                 <div class="d-flex flex-column">
                                     <span class="fw_600">${t.subject}</span>
-                                    ${t.attachment ? `<a href="<?= base_url('uploads/tickets/') ?>/${t.attachment}" target="_blank" class="text-primary mt-1 fw_700 fs-11"><i class="ti-clip me-1"></i>${t.attachment}</a>` : ''}
+                                    ${t.attachment ? `<a href="<?= site_url('media/view/') ?>/${t.attachment}" target="_blank" class="text-primary mt-1 fw_700 fs-11"><i class="ti-clip me-1"></i>${t.attachment}</a>` : ''}
                                 </div>
                             </td>
                             <td>${t.category}</td>

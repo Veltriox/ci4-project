@@ -140,7 +140,7 @@ $(document).ready(function() {
                         <label class="tkt-label">My Description</label>
                         <p class="mb-0 text-dark fs-13">${t.description}</p>
                     </div>
-                    ${t.attachment ? `<div class="mt-3 border-top pt-3 mb-3"><label class="tkt-label">Attachment</label><a href="<?= base_url('uploads/tickets/') ?>/${t.attachment}" target="_blank" class="text-primary fw_600 fs-13"><i class="ti-clip me-1"></i>${t.attachment}</a></div>` : ''}
+                    ${t.attachment ? `<div class="mt-3 border-top pt-3 mb-3"><label class="tkt-label">Attachment</label><a href="<?= site_url('media/view/') ?>/${t.attachment}" target="_blank" class="text-primary fw_600 fs-13"><i class="ti-clip me-1"></i>${t.attachment}</a></div>` : ''}
                     ${t.agent_remark ? `<div class="pt-3 border-top"><label class="tkt-label text-success">Team Response</label><p class="mb-0 text-dark fw_600 fs-13">${t.agent_remark}</p></div>` : ''}
                 `);
             }

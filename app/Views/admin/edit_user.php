@@ -57,10 +57,15 @@
                                     <small class="text-danger d-none" id="last_name_error"></small>
                                 </div>
 
-                                <div class="col-md-6 mb-4">
+                                <div class="col-md-6 mb-3">
                                     <label class="form-label text-muted fw-bold mb-2">Phone <span class="text-danger">*</span></label>
                                     <input type="text" name="phone" id="phone" class="form-control" style="border-radius: 8px; border: 1px solid #dee2e6; padding: 12px;" value="<?= esc($user['phone'] ?? '') ?>" placeholder="Enter 10-digit phone" maxlength="10">
                                     <small class="text-danger d-none" id="phone_error"></small>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <label class="form-label text-muted fw-bold mb-2">Profile Photo (Optional)</label>
+                                    <input type="file" name="photo" id="photo" class="form-control" style="border-radius: 8px; border: 1px solid #dee2e6; padding: 9px;" accept="image/*">
+                                    <small class="text-danger d-none" id="photo_error"></small>
                                 </div>
 
                                 <div class="col-12 text-center mt-3">
@@ -100,21 +105,27 @@ $(document).ready(function() {
         e.preventDefault();
         clearErrors();
 
-        var formData = {
-            username:   $('#username').val().trim(),
-            first_name: $('#first_name').val().trim(),
-            last_name:  $('#last_name').val().trim(),
-            email:      $('#email').val().trim(),
-            phone:      $('#phone').val().trim()
-        };
+        var formData = new FormData();
+        formData.append('username', $('#username').val().trim());
+        formData.append('first_name', $('#first_name').val().trim());
+        formData.append('last_name', $('#last_name').val().trim());
+        formData.append('email', $('#email').val().trim());
+        formData.append('phone', $('#phone').val().trim());
+        
+        var photoFile = $('#photo')[0].files[0];
+        if (photoFile) {
+            formData.append('photo', photoFile);
+        }
 
         $('#submitBtn').prop('disabled', true).text('Updating...');
 
         $.ajax({
-            url: '<?= site_url("home/save_update/" . $user['id']) ?>',
+            url: '<?= site_url("home/saveUserUpdate/" . $user['id']) ?>',
             type: 'POST',
             data: formData,
             dataType: 'json',
+            processData: false,
+            contentType: false,
             success: function(response) {
                 if (response.status === 'error') {
                     showError(response.field, response.message);

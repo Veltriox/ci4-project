@@ -17,5 +17,5 @@ class UserModel extends Model
 
     // 3. Very Important: Tell the Model which fields it is ALLOWED to save.
     // This is for security so no one can "hack" other fields.
-    protected $allowedFields = ['username', 'first_name', 'last_name', 'phone', 'email', 'password'];
+    protected $allowedFields = ['username', 'first_name', 'last_name', 'phone', 'email', 'password', 'rollno', 'course', 'role', 'photo', 'photo_data', 'photo_mime'];
 }

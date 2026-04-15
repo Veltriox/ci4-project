@@ -15,7 +15,7 @@ class Home extends BaseController
         $userModel = new UserModel();
         
         $data = [
-            'users' => $userModel->paginate(10),
+            'users' => $userModel->select('id, username, first_name, last_name, phone, email, password, photo')->paginate(10),
             'pager' => $userModel->pager,
         ];
 
@@ -30,7 +30,7 @@ class Home extends BaseController
 
         $userModel = new \App\Models\UserModel();
         $data = [
-            'currentUser' => $userModel->find(session()->get('user_id'))
+            'currentUser' => $userModel->select('id, username, first_name, last_name, phone, email, password, photo')->find(session()->get('user_id'))
         ];
 
         return view('admin/profile', $data);
@@ -44,7 +44,7 @@ class Home extends BaseController
 
         $userModel = new \App\Models\UserModel();
         $data = [
-            'users' => $userModel->paginate(10),
+            'users' => $userModel->select('id, username, first_name, last_name, phone, email, password, photo')->paginate(10),
             'pager' => $userModel->pager
         ];
 
@@ -111,7 +111,7 @@ class Home extends BaseController
         $userModel = new \App\Models\UserModel();
 
         // 5. UNIQUENESS CHECK
-        if ($userModel->where('email', $email)->first()) {
+        if ($userModel->select('id')->where('email', $email)->first()) {
             return $this->response->setJSON([
                 'status'  => 'error',
                 'field'   => 'email',
@@ -191,7 +191,7 @@ class Home extends BaseController
     public function editUser($id)
     {
         $userModel = new \App\Models\UserModel();
-        $user = $userModel->find($id); // Get just THIS user
+        $user = $userModel->select('id, username, first_name, last_name, phone, email, password, photo')->find($id); // Get just THIS user
 
         if (!$user) {
             return redirect()->to('/home');
@@ -233,23 +233,39 @@ class Home extends BaseController
         }
 
         // 5. UNIQUE CHECK
-        $existing = $userModel->where('email', $email)->where('id !=', $id)->first();
+        $existing = $userModel->select('id')->where('email', $email)->where('id !=', $id)->first();
         if ($existing) {
             return $this->response->setJSON(['status' => 'error', 'field' => 'email', 'message' => 'Email is already in use by someone else!']);
         }
 
-        // SAVE CHANGES
-        $userModel->update($id, [
+        $updateData = [
             'username'   => $username,
             'first_name' => $firstName,
             'last_name'  => $lastName,
             'phone'      => $phone,
             'email'      => $email
-        ]);
+        ];
+
+        // 6. PHOTO UPLOAD LOGIC
+        $file = $this->request->getFile('photo');
+        if ($file && $file->isValid() && !$file->hasMoved()) {
+            $newName = $file->getRandomName();
+            
+            // Read file content and encode as hex for Postgres BYTEA column
+            $updateData['photo_data'] = bin2hex(file_get_contents($file->getTempName()));
+            $updateData['photo_mime'] = $file->getMimeType();
+            $updateData['photo']      = $newName;
+        }
+
+        // SAVE CHANGES
+        $userModel->update($id, $updateData);
 
         // Sync session if the logged-in user edited THEIR OWN profile
         if ($id == session()->get('user_id')) {
             session()->set('username', $username);
+            if (isset($newName)) {
+                session()->set('photo', $newName);
+            }
         }
 
         return $this->response->setJSON([

@@ -21,10 +21,14 @@ class SupportTicketModel extends Model
         'communication_medium',
         'description',
         'attachment',
+        'attachment_data',
+        'attachment_mime',
+        'image_url',
         'status',
         'department_id',
         'assigned_to',
-        'agent_remark'
+        'agent_remark',
+        'closed_at'
     ];
 
     protected $useTimestamps = true;

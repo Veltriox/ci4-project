@@ -101,6 +101,7 @@ class Login extends BaseController
             session()->set([
                 'username' => $user['username'],
                 'user_id'  => $user['id'], 
+                'photo'    => $user['photo'],
                 'isLoggedIn' => true,
             ]);
             

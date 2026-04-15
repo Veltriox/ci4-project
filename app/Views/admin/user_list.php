@@ -35,6 +35,7 @@
                                     <thead>
                                         <tr>
                                             <th scope="col">#</th>
+                                            <th scope="col">Profile</th>
                                             <th scope="col">Username</th>
                                             <th scope="col">First Name</th>
                                             <th scope="col">Last Name</th>
@@ -70,7 +71,7 @@ $(document).ready(function() {
     function loadUsers() {
         const query = {
             operation: 'query',
-            fields: ['id', 'username', 'first_name', 'last_name', 'email', 'phone']
+            fields: ['id', 'username', 'first_name', 'last_name', 'email', 'phone', 'photo']
         };
 
         $.ajax({
@@ -98,6 +99,9 @@ $(document).ready(function() {
                         html += `
                         <tr>
                             <th scope="row">${index + 1}</th>
+                            <td>
+                                <img src="${user.photo ? '<?= site_url("media/view/") ?>' + user.photo : '<?= base_url("img/client_img.png") ?>'}" alt="Profile" style="width:40px; height:40px; object-fit:cover; border-radius:50%;">
+                            </td>
                             <td>${user.username}</td>
                             <td>${user.first_name || '-'}</td>
                             <td>${user.last_name || '-'}</td>
